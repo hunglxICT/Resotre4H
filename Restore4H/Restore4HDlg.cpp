@@ -67,6 +67,8 @@ void CRestore4HDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO1, DriveList);
 	DDX_Control(pDX, IDC_EDIT1, StrInput);
 	DDX_Control(pDX, IDC_EDIT2, ProcessingBytes);
+	DDX_Control(pDX, IDC_EDIT5, StartPosition);
+	DDX_Control(pDX, IDC_EDIT6, EndPosition);
 }
 
 BEGIN_MESSAGE_MAP(CRestore4HDlg, CDialogEx)
@@ -82,6 +84,7 @@ BEGIN_MESSAGE_MAP(CRestore4HDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON4, &CRestore4HDlg::OnBnClickedButton4)
 	ON_BN_CLICKED(IDC_BUTTON6, &CRestore4HDlg::OnBnClickedButton6)
 	ON_BN_CLICKED(IDC_BUTTON7, &CRestore4HDlg::OnBnClickedButton7)
+	ON_BN_CLICKED(IDC_BUTTON5, &CRestore4HDlg::OnBnClickedButton5)
 END_MESSAGE_MAP()
 
 
@@ -153,6 +156,18 @@ BOOL CRestore4HDlg::OnInitDialog()
 	{
 		listctrl->InsertColumn(i + DETAIL_SIZE + 2, HcharStringToLPCTSTR(Hitoa(i)), 0, 21, -1); //
 	}
+
+	//Init start position and end position to 0
+	CEdit *CEdittemp;
+	CEdittemp = (CEdit*)GetDlgItem(IDC_EDIT5);
+	CEdittemp->SetWindowTextW(HcharStringToLPCTSTR(Hitoa(bufferstart)));
+	CEdittemp = (CEdit*)GetDlgItem(IDC_EDIT6);
+	CEdittemp->SetWindowTextW(HcharStringToLPCTSTR(Hitoa(bufferend)));
+
+	//Create mycontrol struct which contains pointer to controller
+	mycontrol.detailOutputField = (CListCtrl*)GetDlgItem(IDC_LIST1);
+	mycontrol.startPosition = (CEdit*)GetDlgItem(IDC_EDIT5);
+	mycontrol.endPosition = (CEdit*)GetDlgItem(IDC_EDIT6);
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -278,8 +293,10 @@ void CRestore4HDlg::OnNMDblclkList2(NMHDR *pNMHDR, LRESULT *pResult)
 	position = Hatoi((unsigned char*) (char*) temp_ascii);
 	listctrl = (CListCtrl*)GetDlgItem(IDC_LIST1);
 	position = Hmax(position - BLOCK_LEN, 0);
+	bufferstart = 0;
 	nRead = ReadMemory(position, buf, BLOCK_LEN + BLOCK_LEN, drive);
-	PrintDetail(drive, patternInput, listctrl, position);
+	bufferend = nRead;
+	PrintDetail(drive, patternInput, &mycontrol, position);
 	*pResult = 0;
 }
 
@@ -375,28 +392,48 @@ void CRestore4HDlg::OnBnClickedButton3() // save to file button
 void CRestore4HDlg::OnBnClickedButton4() //add previous 
 {
 	// TODO: Add your control notification handler code here
-	CListCtrl* listctrl = (CListCtrl*)GetDlgItem(IDC_LIST1);
 	CString temp_CString;
 	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_EDIT4);
 	pEdit->GetWindowTextW(temp_CString);
 	CT2A temp_ascii2(temp_CString);
 	unsigned char *n_ = (unsigned char*)temp_ascii2.m_psz;
 	int n = GetValue(n_);
-	//if (n > 0) AddPrevious(n, position, listctrl);
+	if (n > 0)
+	{
+		AddPrevious(n, position, &mycontrol);
+		PrintDetail(NULL, NULL, &mycontrol, position);
+	}
 }
 
 
 void CRestore4HDlg::OnBnClickedButton6() // <<
 {
 	// TODO: Add your control notification handler code here
-	CListCtrl* listctrl = (CListCtrl*)GetDlgItem(IDC_LIST1);
-	AddPrevious(BLOCK_LEN, position, listctrl);
+	AddPrevious(BLOCK_LEN, position, &mycontrol);
+	PrintDetail(NULL, NULL, &mycontrol, position);
 }
 
 
 void CRestore4HDlg::OnBnClickedButton7() // >>
 {
 	// TODO: Add your control notification handler code here
-	CListCtrl* listctrl = (CListCtrl*)GetDlgItem(IDC_LIST1);
-	AddAfter(BLOCK_LEN, position, listctrl);
+	AddAfter(BLOCK_LEN, position, &mycontrol);
+	PrintDetail(NULL, NULL, &mycontrol, position);
+}
+
+
+void CRestore4HDlg::OnBnClickedButton5()
+{
+	// TODO: Add your control notification handler code here
+	CString temp_CString;
+	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_EDIT4);
+	pEdit->GetWindowTextW(temp_CString);
+	CT2A temp_ascii2(temp_CString);
+	unsigned char *n_ = (unsigned char*)temp_ascii2.m_psz;
+	int n = GetValue(n_);
+	if (n > 0)
+	{
+		AddAfter(n, position, &mycontrol);
+		PrintDetail(NULL, NULL, &mycontrol, position);
+	}
 }

@@ -4,7 +4,7 @@
 
 # define DETAIL_SIZE 8
 
-void PrintDetail(unsigned char *drive, unsigned char *patternInput, CListCtrl* listctrl, long long &position);
+void PrintDetail(unsigned char *drive, unsigned char *patternInput, PMYCONTROL controlist, long long &position);
 int SaveResult(unsigned char *filename);
-void AddPrevious(int n, long long &position, CListCtrl *output);
-void AddAfter(int n, long long &position, CListCtrl *output);
+void AddPrevious(int n, long long &position, PMYCONTROL controlist);
+void AddAfter(int n, long long &position, PMYCONTROL controlist);

@@ -1,0 +1,3 @@
+Chosen drive: \\.\C:
+Input pattern: 3558E@Dell
+Input length:  10

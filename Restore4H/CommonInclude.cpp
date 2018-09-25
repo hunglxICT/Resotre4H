@@ -2,14 +2,18 @@
 #include "stdafx.h"
 #include "CommonInclude.h"
 
+MYCONTROL mycontrol;
+
 DWORD nRead;
-unsigned char buf[5130] = { 0 };
+unsigned char buf[MAX_BUFFER_SIZE] = { 0 };
 
 int inputMode = PLAIN;
 int isRunning = 0;
 unsigned char *drive = NULL;
 unsigned char *patternInput = NULL;
 long long position = 0;
+int bufferstart;
+int bufferend;
 
 long long Hmax(long long a, long long b)
 {

@@ -10,19 +10,30 @@ typedef struct MyData {
 	int *isRunning;
 } MYDATA, *PMYDATA;
 
+typedef struct MyControl {
+	CEdit *startPosition;
+	CEdit *endPosition;
+	CListCtrl *detailOutputField;
+} MYCONTROL, *PMYCONTROL;
+
 # define BLOCK_LEN 512
 # define PLAIN 0
 # define HEX   1
 # define MAX_INPUT 1999
+# define MAX_BUFFER_SIZE 51309
+
+extern MYCONTROL mycontrol;
 
 extern DWORD nRead;
-extern unsigned char buf[5130];
+extern unsigned char buf[MAX_BUFFER_SIZE];
 
 extern int inputMode;
 extern int isRunning;
 extern unsigned char *drive;
 extern unsigned char *patternInput;
 extern long long position;
+extern int bufferstart;
+extern int bufferend;
 
 long long Hmax(long long a, long long b);
 int Hstrlen(unsigned char *s); //get length of string start with s and end with 0

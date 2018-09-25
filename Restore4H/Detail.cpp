@@ -16,16 +16,18 @@ unsigned char *hexa(unsigned char x)
 	return res;
 }
 
-void PrintDetail(unsigned char *drive, unsigned char *patternInput, CListCtrl* outputfield, long long &position)
+void PrintDetail(unsigned char *drive, unsigned char *patternInput, PMYCONTROL controlist, long long &position)
 {
+	CListCtrl *outputfield = controlist->detailOutputField;
 	outputfield->DeleteAllItems();
-	int len = nRead;
+	//int len = nRead;
+	int len = bufferend - bufferstart;
 	int cnt = 0;
 	//int patternlen = Hstrlen(patternInput);
 	//int patternpos = Hsubstr(patternInput, buf, patternlen, BLOCK_LEN + BLOCK_LEN);
 	for (int i = 0; i < len; i += DETAIL_SIZE)
 	{
-		int t = outputfield->InsertItem(cnt, HcharStringToLPCTSTR(Hitoa(i + position)));
+		int t = outputfield->InsertItem(cnt, HcharStringToLPCTSTR(Hitoa(i + position + bufferstart)));
 		for (int j = 0; j < DETAIL_SIZE; j++)
 		{
 			/*
@@ -35,11 +37,13 @@ void PrintDetail(unsigned char *drive, unsigned char *patternInput, CListCtrl* o
 			}
 			else outputfield->SetTextColor(0);
 			*/
-			outputfield->SetItemText(t, j + 1, HcharStringToLPCTSTR(hexa(buf[i + j])));
-			outputfield->SetItemText(t, j + DETAIL_SIZE + 2, HcharStringToLPCTSTR(HReadable(&buf[i + j],1)));
+			outputfield->SetItemText(t, j + 1, HcharStringToLPCTSTR(hexa(buf[i + j + bufferstart])));
+			outputfield->SetItemText(t, j + DETAIL_SIZE + 2, HcharStringToLPCTSTR(HReadable(&buf[i + j + bufferstart],1)));
 		}
 		cnt++;
 	}
+	controlist->startPosition->SetWindowTextW(HcharStringToLPCTSTR(Hitoa(bufferstart + position)));
+	controlist->endPosition->SetWindowTextW(HcharStringToLPCTSTR(Hitoa(bufferend + position)));
 }
 
 int SaveResult(unsigned char *filename)
@@ -56,7 +60,7 @@ int SaveResult(unsigned char *filename)
 		return ERROR_FILE_EXISTS;
 	}
 	f = fopen((char*)filename, "wb");
-	int writesize = fwrite(buf, 1, nRead, f);
+	int writesize = fwrite(buf + bufferstart, 1, bufferend - bufferstart, f);
 	fclose(f);
 	if (writesize != nRead)
 	{
@@ -65,25 +69,59 @@ int SaveResult(unsigned char *filename)
 	return 0;
 }
 
-void AddPrevious(int n, long long &position, CListCtrl *output)
+void AddPrevious(int n, long long &position, PMYCONTROL controlist)
 {
-	if (position - n < 0)
+	if (bufferstart >= n)
 	{
+		bufferstart -= n;
+		nRead += n;
 		return;
+	}
+	else
+	{
+		n -= bufferstart;
+		bufferstart = 0;
+	}
+	int nBlockRead = (n - 1) / BLOCK_LEN + 1;
+	int ReadSize = nBlockRead * BLOCK_LEN;
+	if (position - ReadSize < 0)
+	{
+		ReadSize = position;
+		position = 0;
+		bufferstart = 0;
+	}
+	else
+	{
+		position -= ReadSize;
+		bufferstart = (BLOCK_LEN - (n % BLOCK_LEN)) % BLOCK_LEN;
 	}
 	for (int i = nRead-1; i >= 0; i--)
 	{
-		buf[i + n] = buf[i];
+		buf[i + ReadSize] = buf[i];
 	}
-	position = position - n;
-	nRead += n;
-	ReadMemory(position, buf, n, drive);
-	PrintDetail(NULL, NULL, output, position);
+	nRead += ReadSize;
+	ReadMemory(position, buf, ReadSize, drive);
+	bufferend = bufferend + ReadSize;
 }
 
-void AddAfter(int n, long long &position, CListCtrl *output)
+void AddAfter(int n, long long &position, PMYCONTROL controlist)
 {
-	ReadMemory(position + nRead, buf + nRead, n, drive);
-	nRead += n;
-	PrintDetail(NULL, NULL, output, position);
+	int spaceleft = (BLOCK_LEN - (bufferend % BLOCK_LEN)) % BLOCK_LEN;
+	if (spaceleft >= n)
+	{
+		bufferend += n;
+		nRead += n;
+		PrintDetail(NULL, NULL, controlist, position);
+		return;
+	}
+	else
+	{
+		bufferend = nRead;
+		n -= spaceleft;
+	};
+	int nBlockRead = (n - 1) / BLOCK_LEN + 1;
+	int ReadSize = nBlockRead * BLOCK_LEN;
+	ReadMemory(position + nRead, buf + nRead, ReadSize, drive);
+	nRead += ReadSize;
+	bufferend = bufferend + n;
 }

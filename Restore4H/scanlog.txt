@@ -4,40 +4,8 @@ Current Scan: 30001152
 Current Scan: 40001536
 Current Scan: 50001920
 Current Scan: 60002304
-O re ka!!!
-1024
-
-65869824
-O re ka!!!
-1024
-
-65870336
 Current Scan: 70002688
 Current Scan: 80003072
-O re ka!!!
-1024
-
-85323264
-O re ka!!!
-1024
-
-85323776
-O re ka!!!
-1024
-
-85324288
-O re ka!!!
-1024
-
-85324800
-O re ka!!!
-1024
-
-85325824
-O re ka!!!
-1024
-
-85326336
 Current Scan: 90003456
 Current Scan: 100003840
 Current Scan: 110004224
@@ -49,13 +17,53 @@ Current Scan: 160006144
 Current Scan: 170006528
 Current Scan: 180006912
 Current Scan: 190007296
+O re ka!!!
+528
+
+194520576
+O re ka!!!
+16
+
+194521088
 Current Scan: 200007680
+O re ka!!!
+157
+
+207076864
+O re ka!!!
+247
+
+207077376
 Current Scan: 210008064
 Current Scan: 220008448
+O re ka!!!
+249
+
+224786432
+O re ka!!!
+138
+
+224786944
 Current Scan: 230008832
+O re ka!!!
+39
+
+232744448
+O re ka!!!
+91
+
+232744960
 Current Scan: 240009216
 Current Scan: 250009600
 Current Scan: 260009984
+O re ka!!!
+393
+
+261484544
+O re ka!!!
+279
+
+261485056
 Current Scan: 270010368
 Current Scan: 280010752
 Current Scan: 290011136
@@ -63,6 +71,14 @@ Current Scan: 300011520
 Current Scan: 310011904
 Current Scan: 320012288
 Current Scan: 330012672
+O re ka!!!
+83
+
+338046976
+O re ka!!!
+272
+
+338047488
 Current Scan: 340013056
 Current Scan: 350013440
 Current Scan: 360013824
@@ -73,3 +89,487 @@ Current Scan: 400015360
 Current Scan: 410015744
 Current Scan: 420016128
 Current Scan: 430016512
+Current Scan: 440016896
+Current Scan: 450017280
+Current Scan: 460017664
+Current Scan: 470018048
+O re ka!!!
+1024
+
+478648832
+O re ka!!!
+1024
+
+478649344
+O re ka!!!
+1024
+
+478650880
+O re ka!!!
+1024
+
+478651392
+O re ka!!!
+1024
+
+479113216
+O re ka!!!
+1024
+
+479113728
+O re ka!!!
+815
+
+479735296
+O re ka!!!
+303
+
+479735808
+Current Scan: 480018432
+O re ka!!!
+37
+
+481879040
+O re ka!!!
+669
+
+481879552
+O re ka!!!
+1024
+
+485150720
+O re ka!!!
+972
+
+485151232
+O re ka!!!
+44
+
+485205504
+O re ka!!!
+548
+
+485206016
+O re ka!!!
+23
+
+485297664
+O re ka!!!
+1024
+
+485298176
+O re ka!!!
+1024
+
+485328896
+O re ka!!!
+1024
+
+485329408
+O re ka!!!
+743
+
+485335040
+O re ka!!!
+231
+
+485335552
+O re ka!!!
+718
+
+485376512
+O re ka!!!
+206
+
+485377024
+O re ka!!!
+447
+
+485380096
+O re ka!!!
+558
+
+485380608
+O re ka!!!
+1024
+
+485422592
+O re ka!!!
+1024
+
+485423104
+O re ka!!!
+1024
+
+486054912
+O re ka!!!
+1024
+
+486055424
+O re ka!!!
+91
+
+486109696
+O re ka!!!
+111
+
+486110208
+O re ka!!!
+33
+
+486201856
+O re ka!!!
+1024
+
+486202368
+O re ka!!!
+1024
+
+486202880
+O re ka!!!
+1024
+
+486233088
+O re ka!!!
+1024
+
+486233600
+O re ka!!!
+951
+
+486239232
+O re ka!!!
+439
+
+486239744
+O re ka!!!
+926
+
+486280704
+O re ka!!!
+414
+
+486281216
+O re ka!!!
+655
+
+486284288
+O re ka!!!
+143
+
+486284800
+O re ka!!!
+1024
+
+486327296
+O re ka!!!
+1024
+
+486327808
+O re ka!!!
+1024
+
+486959616
+O re ka!!!
+876
+
+486960128
+O re ka!!!
+24
+
+487014400
+O re ka!!!
+452
+
+487014912
+O re ka!!!
+150
+
+487106560
+O re ka!!!
+1024
+
+487107072
+O re ka!!!
+1024
+
+487137792
+O re ka!!!
+1024
+
+487138304
+O re ka!!!
+647
+
+487143936
+O re ka!!!
+135
+
+487144448
+O re ka!!!
+133
+
+487184896
+O re ka!!!
+622
+
+487185408
+O re ka!!!
+351
+
+487188992
+O re ka!!!
+462
+
+487189504
+O re ka!!!
+1024
+
+487231488
+O re ka!!!
+1024
+
+487232000
+O re ka!!!
+767
+
+488386048
+O re ka!!!
+255
+
+488386560
+O re ka!!!
+500
+
+488457728
+O re ka!!!
+263
+
+488458240
+O re ka!!!
+1024
+
+488649728
+O re ka!!!
+779
+
+488650240
+O re ka!!!
+17
+
+488895488
+O re ka!!!
+45
+
+488896000
+Current Scan: 490018816
+O re ka!!!
+1024
+
+492099584
+O re ka!!!
+1024
+
+492100096
+Current Scan: 500019200
+Current Scan: 510019584
+Current Scan: 520019968
+Current Scan: 530020352
+Current Scan: 540020736
+Current Scan: 550021120
+Current Scan: 560021504
+Current Scan: 570021888
+Current Scan: 580022272
+Current Scan: 590022656
+O re ka!!!
+70
+
+596691968
+O re ka!!!
+399
+
+596692480
+O re ka!!!
+386
+
+599275008
+O re ka!!!
+1024
+
+599275520
+Current Scan: 600023040
+O re ka!!!
+7
+
+603970048
+O re ka!!!
+405
+
+603970560
+O re ka!!!
+317
+
+609277952
+O re ka!!!
+84
+
+609278464
+Current Scan: 610023424
+Current Scan: 620023808
+O re ka!!!
+777
+
+620811776
+O re ka!!!
+265
+
+620812288
+Current Scan: 630024192
+O re ka!!!
+225
+
+639759360
+O re ka!!!
+399
+
+639759872
+Current Scan: 640024576
+O re ka!!!
+1002
+
+646849536
+O re ka!!!
+490
+
+646850048
+Current Scan: 650024960
+Current Scan: 660025344
+Current Scan: 670025728
+O re ka!!!
+612
+
+673587712
+Current Scan: 680026112
+O re ka!!!
+111
+
+685411328
+O re ka!!!
+37
+
+685411840
+Current Scan: 690026496
+Current Scan: 700026880
+O re ka!!!
+327
+
+701012992
+O re ka!!!
+37
+
+701013504
+O re ka!!!
+311
+
+704655360
+O re ka!!!
+197
+
+704655872
+Current Scan: 710027264
+Current Scan: 720027648
+Current Scan: 730028032
+Current Scan: 740028416
+O re ka!!!
+802
+
+745985536
+O re ka!!!
+290
+
+745986048
+Current Scan: 750028800
+O re ka!!!
+246
+
+750883840
+O re ka!!!
+81
+
+750884352
+Current Scan: 760029184
+O re ka!!!
+360
+
+760631808
+O re ka!!!
+148
+
+760632320
+Current Scan: 770029568
+O re ka!!!
+1024
+
+770535424
+O re ka!!!
+1024
+
+770535936
+O re ka!!!
+124
+
+776530432
+O re ka!!!
+277
+
+776530944
+O re ka!!!
+1024
+
+778621952
+O re ka!!!
+548
+
+778622464
+Current Scan: 780029952
+O re ka!!!
+285
+
+788111872
+O re ka!!!
+197
+
+788112384
+Current Scan: 790030336
+O re ka!!!
+97
+
+791441920
+O re ka!!!
+190
+
+791442432
+Current Scan: 800030720
+Current Scan: 810031104
+O re ka!!!
+161
+
+811466752
+O re ka!!!
+533
+
+811467264
+Current Scan: 820031488
+Current Scan: 830031872
+Current Scan: 840032256
+O re ka!!!
+296
+
+846254592
+O re ka!!!
+150
+
+846255104
+Current Scan: 850032640
+Current Scan: 860033024
+Current Scan: 870033408
