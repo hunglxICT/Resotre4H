@@ -1,0 +1,3 @@
+Chosen drive: \\.\E:
+Input pattern: hung
+Input length:  4

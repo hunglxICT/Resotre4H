@@ -1,0 +1,5 @@
+﻿  Restore4H.cpp
+  Restore4HDlg.cpp
+Restore4HDlg.obj : error LNK2001: unresolved external symbol "public: void __thiscall CRestore4HDlg::OnBnClickedRadio2(void)" (?OnBnClickedRadio2@CRestore4HDlg@@QAEXXZ)
+Restore4HDlg.obj : error LNK2001: unresolved external symbol "public: void __thiscall CRestore4HDlg::OnLbnSelchangeList2(void)" (?OnLbnSelchangeList2@CRestore4HDlg@@QAEXXZ)
+E:\Application\Restore4H\Release\Restore4H.exe : fatal error LNK1120: 2 unresolved externals

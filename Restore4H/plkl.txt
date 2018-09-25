@@ -1,0 +1,16 @@
+
+000048.021| ALWAYS| Creating Hero Karma...
+000048.022|  ERROR| Can not open file <KarmaInnerFlame.dds> *********
+000048.022|  ERROR| Failed to load KarmaInnerFlame.dds
+000048.022|   WARN| r3dTexture EX: KarmaInnerFlame.dds - not found. Dummy texture created.
+000048.036| ALWAYS| Spawning champion (Karma) with skinID 0 on team 200 for clientID 4 and summonername (LKP99) (is HUMAN PLAYER)
+000048.053| ALWAYS| Hero Karma(0) created for LKP99
+000048.054| ALWAYS| Player LKP99 (4) AddPerk = SummonAery (8214)
+000048.055| ALWAYS| Player LKP99 (4) AddPerk = TheUltimateHat (8243)
+000048.055| ALWAYS| Player LKP99 (4) AddPerk = Transcendence (8210)
+000048.055| ALWAYS| Player LKP99 (4) AddPerk = GatheringStorm (8236)
+000048.055| ALWAYS| Player LKP99 (4) AddPerk = NanaTaxman (8321)
+000048.055| ALWAYS| Player LKP99 (4) AddPerk = Intelligence (8347)
+000048.055| ALWAYS| Player LKP99 (4) PerkStyle = Sorcery (8200)
+000048.055| ALWAYS| Player LKP99 (4) perkSubStyle = Inspiration (8300)
+000048.055| ALWAYS| Player LK
