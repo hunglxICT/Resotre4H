@@ -1,3 +1,4 @@
 Chosen drive: \\.\E:
-Input pattern: LKP
-Input length:  3
+Input pattern: lover
+Input length:  5
+Input mode: PLAIN

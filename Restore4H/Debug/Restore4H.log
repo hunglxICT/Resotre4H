@@ -1,3 +1,15 @@
-﻿  CommonInclude.cpp
+﻿  Skipping... (no relevant changes detected)
+  stdafx.cpp
+  Restore4HDlg.cpp
+  Generating Code...
+  Compiling...
+  Scan.cpp
+e:\application\restore4h\restore4h\scan.cpp(21): warning C4101: 'last': unreferenced local variable
+  ListDisk.cpp
+  Detail.cpp
+e:\application\restore4h\restore4h\detail.cpp(89): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+  CommonInclude.cpp
+  Generating Code...
+e:\application\restore4h\restore4h\scan.cpp(144): warning C4715: 'scan': not all control paths return a value
   Restore4H.vcxproj -> E:\Application\Restore4H\Debug\Restore4H.exe
   Restore4H.vcxproj -> E:\Application\Restore4H\Debug\Restore4H.pdb (Partial PDB)

@@ -30,6 +30,7 @@ void PrintDetail(unsigned char *drive, unsigned char *patternInput, PMYCONTROL c
 		int t = outputfield->InsertItem(cnt, HcharStringToLPCTSTR(Hitoa(i + position + bufferstart)));
 		for (int j = 0; j < DETAIL_SIZE; j++)
 		{
+			if (i + j >= len) break;
 			/*
 			if (i + j >= patternpos && i + j < patternpos + patternlen)
 			{
@@ -74,7 +75,6 @@ void AddPrevious(int n, long long &position, PMYCONTROL controlist)
 	if (bufferstart >= n)
 	{
 		bufferstart -= n;
-		nRead += n;
 		return;
 	}
 	else
@@ -106,11 +106,10 @@ void AddPrevious(int n, long long &position, PMYCONTROL controlist)
 
 void AddAfter(int n, long long &position, PMYCONTROL controlist)
 {
-	int spaceleft = (BLOCK_LEN - (bufferend % BLOCK_LEN)) % BLOCK_LEN;
+	int spaceleft = nRead - bufferend;
 	if (spaceleft >= n)
 	{
 		bufferend += n;
-		nRead += n;
 		PrintDetail(NULL, NULL, controlist, position);
 		return;
 	}
@@ -124,4 +123,26 @@ void AddAfter(int n, long long &position, PMYCONTROL controlist)
 	ReadMemory(position + nRead, buf + nRead, ReadSize, drive);
 	nRead += ReadSize;
 	bufferend = bufferend + n;
+}
+
+void DeletePrevious(int n, long long &position, PMYCONTROL controlist)
+{
+	bufferstart += n;
+	if (bufferstart >= bufferend)
+	{
+		bufferstart = 0;
+		bufferend = 0;
+		nRead = 0;
+	}
+}
+
+void DeleteAfter(int n, long long &position, PMYCONTROL controlist)
+{
+	bufferend -= n;
+	if (bufferstart >= bufferend)
+	{
+		bufferstart = 0;
+		bufferend = 0;
+		nRead = 0;
+	}
 }

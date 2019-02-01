@@ -40,7 +40,6 @@ public:
 	// The pattern text you want to find in the disk
 	CEdit StrInput;
 	afx_msg void OnBnClickedRadio1();
-	int HexButton;
 	int PlainButton;
 	// List of possible results
 	CListBox OutputList;
@@ -60,4 +59,8 @@ public:
 	CEdit StartPosition;
 	CEdit EndPosition;
 	afx_msg void OnBnClickedButton5();
+	afx_msg void OnBnClickedButton8();
+	afx_msg void OnBnClickedButton9();
+	// Choose option hex for input
+	int HexInput;
 };

@@ -12,8 +12,8 @@ int isRunning = 0;
 unsigned char *drive = NULL;
 unsigned char *patternInput = NULL;
 long long position = 0;
-int bufferstart;
-int bufferend;
+int bufferstart = 0;
+int bufferend = 0;
 
 long long Hmax(long long a, long long b)
 {

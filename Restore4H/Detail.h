@@ -8,3 +8,5 @@ void PrintDetail(unsigned char *drive, unsigned char *patternInput, PMYCONTROL c
 int SaveResult(unsigned char *filename);
 void AddPrevious(int n, long long &position, PMYCONTROL controlist);
 void AddAfter(int n, long long &position, PMYCONTROL controlist);
+void DeletePrevious(int n, long long &position, PMYCONTROL controlist);
+void DeleteAfter(int n, long long &position, PMYCONTROL controlist);

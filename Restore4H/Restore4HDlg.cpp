@@ -55,8 +55,8 @@ END_MESSAGE_MAP()
 
 CRestore4HDlg::CRestore4HDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_RESTORE4H_DIALOG, pParent)
-	, HexButton(0)
 	, PlainButton(0)
+	, HexInput(0)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -85,6 +85,8 @@ BEGIN_MESSAGE_MAP(CRestore4HDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON6, &CRestore4HDlg::OnBnClickedButton6)
 	ON_BN_CLICKED(IDC_BUTTON7, &CRestore4HDlg::OnBnClickedButton7)
 	ON_BN_CLICKED(IDC_BUTTON5, &CRestore4HDlg::OnBnClickedButton5)
+	ON_BN_CLICKED(IDC_BUTTON8, &CRestore4HDlg::OnBnClickedButton8)
+	ON_BN_CLICKED(IDC_BUTTON9, &CRestore4HDlg::OnBnClickedButton9)
 END_MESSAGE_MAP()
 
 
@@ -168,6 +170,10 @@ BOOL CRestore4HDlg::OnInitDialog()
 	mycontrol.detailOutputField = (CListCtrl*)GetDlgItem(IDC_LIST1);
 	mycontrol.startPosition = (CEdit*)GetDlgItem(IDC_EDIT5);
 	mycontrol.endPosition = (CEdit*)GetDlgItem(IDC_EDIT6);
+
+	//Set running state is 0 (not running) and default input mode is plain text
+	isRunning = 0;
+	inputMode = PLAIN;
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -220,17 +226,54 @@ HCURSOR CRestore4HDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+int HisHexString(unsigned char *s)
+{
+	int n = Hstrlen(s);
+	if (n % 2) return 0;
+	for (int i = 0; i < n; i++)
+	{
+		if ((s[i] >= '0' && s[i] <= '9') || (s[i] >= 'a' && s[i] <= 'f') || (s[i] >= 'A' && s[i] <= 'F'));
+		else return 0;
+	}
+	return 99;
+}
+
+unsigned char HHexToDec(unsigned char t)
+{
+	if (t >= '0' && t <= '9') return t - '0';
+	else if (t >= 'a' && t <= 'f') return t - 'a' + 10;
+	else if (t >= 'A' && t <= 'F') return t - 'A' + 10;
+	else return 0;
+}
+
+unsigned char *HConvertHexStr(unsigned char *s)
+{
+	int n = Hstrlen(s);
+	n = n / 2;
+	unsigned char *res = (unsigned char *)malloc(n + 1);
+	for (int i = 0; i < n; i++)
+	{
+		res[i] = HHexToDec(s[i * 2]) * 16 + HHexToDec(s[i * 2 + 1]);
+	}
+	res[n] = 0;
+	return res;
+}
+
+/*
+void OnBnClickedRadio1()
+{
+	inputMode = PLAIN;
+}
+
+void OnBnClickedRadio2()
+{
+	inputMode = HEX;
+}
+*/
+
 void CRestore4HDlg::OnBnClickedButton1()
 {
 	// TODO: Add your control notification handler code here
-	GetDlgItem(IDC_BUTTON1)->EnableWindow(FALSE);
-	GetDlgItem(IDC_BUTTON2)->EnableWindow(TRUE);
-	GetDlgItem(IDC_COMBO1)->EnableWindow(FALSE);
-	GetDlgItem(IDC_EDIT1)->EnableWindow(FALSE);
-	GetDlgItem(IDC_RADIO1)->EnableWindow(FALSE);
-	GetDlgItem(IDC_RADIO2)->EnableWindow(FALSE);
-	isRunning = 2000;
-
 	FILE *f = fopen("debug.txt", "w");
 
 	// Get chosen drive from combo box
@@ -255,8 +298,46 @@ void CRestore4HDlg::OnBnClickedButton1()
 	patternInput = Hstrndup(patternInput, n);
 	fprintf(f, "Input pattern: %s\n", patternInput);
 	fprintf(f, "Input length:  %d\n", Hstrlen(patternInput));
+
+	// Get input mode: PLAIN or HEX
+	inputMode = GetCheckedRadioButton(IDC_RADIO1, IDC_RADIO2);
+	if (inputMode == IDC_RADIO1) inputMode = PLAIN; else
+		if (inputMode == IDC_RADIO2) inputMode = HEX;
+
+	if (inputMode == HEX)
+	{
+		fprintf(f, "Input mode: HEX\n");
+		if (HisHexString(patternInput))
+		{
+			unsigned char *temp = patternInput;
+			patternInput = HConvertHexStr(patternInput);
+			fprintf(f, "True input: %s\n", (char*)patternInput);
+			n = Hstrlen(patternInput);
+			free(temp);
+		}
+		else {
+			fprintf(f, "Not a valid hex string\n");
+			fclose(f);
+			MessageBox(
+				HcharStringToLPCTSTR((unsigned char*)"Input not a valid hexa string"),
+				HcharStringToLPCTSTR((unsigned char*)"Error"),
+				MB_OK
+			);
+			return;
+		}
+	}
+	else fprintf(f, "Input mode: PLAIN\n");
 	// Scan drive for pattern text
 	//std::thread scanthread (scan, (drive, patternInput, &ProcessingBytes));
+
+	GetDlgItem(IDC_BUTTON1)->EnableWindow(FALSE);
+	GetDlgItem(IDC_BUTTON2)->EnableWindow(TRUE);
+	GetDlgItem(IDC_COMBO1)->EnableWindow(FALSE);
+	GetDlgItem(IDC_EDIT1)->EnableWindow(FALSE);
+	GetDlgItem(IDC_RADIO1)->EnableWindow(FALSE);
+	GetDlgItem(IDC_RADIO2)->EnableWindow(FALSE);
+	isRunning = 2000;
+
 	HANDLE scanthread;
 	MYDATA scanparam;
 	scanparam.drive = drive;
@@ -389,6 +470,14 @@ void CRestore4HDlg::OnBnClickedButton3() // save to file button
 	}
 }
 
+int HcheckInt(unsigned char *s)
+{
+	int n = Hstrlen(s);
+	for (int i = 0; i < n; i++)
+		if (s[i] < '0' || s[i] > '9') return 0;
+	return 93;
+}
+
 void CRestore4HDlg::OnBnClickedButton4() //add previous 
 {
 	// TODO: Add your control notification handler code here
@@ -397,6 +486,15 @@ void CRestore4HDlg::OnBnClickedButton4() //add previous
 	pEdit->GetWindowTextW(temp_CString);
 	CT2A temp_ascii2(temp_CString);
 	unsigned char *n_ = (unsigned char*)temp_ascii2.m_psz;
+	if (!HcheckInt(n_))
+	{
+		MessageBox(
+			HcharStringToLPCTSTR((unsigned char*)NOT_NUMBER_ERROR_MSG),
+			HcharStringToLPCTSTR((unsigned char*)"Error"),
+			MB_OK
+		);
+		return;
+	}
 	int n = GetValue(n_);
 	if (n > 0)
 	{
@@ -430,10 +528,71 @@ void CRestore4HDlg::OnBnClickedButton5()
 	pEdit->GetWindowTextW(temp_CString);
 	CT2A temp_ascii2(temp_CString);
 	unsigned char *n_ = (unsigned char*)temp_ascii2.m_psz;
+	if (!HcheckInt(n_))
+	{
+		MessageBox(
+			HcharStringToLPCTSTR((unsigned char*)NOT_NUMBER_ERROR_MSG),
+			HcharStringToLPCTSTR((unsigned char*)"Error"),
+			MB_OK
+		);
+		return;
+	}
 	int n = GetValue(n_);
 	if (n > 0)
 	{
 		AddAfter(n, position, &mycontrol);
+		PrintDetail(NULL, NULL, &mycontrol, position);
+	}
+}
+
+
+void CRestore4HDlg::OnBnClickedButton8()
+{
+	// TODO: Add your control notification handler code here
+	CString temp_CString;
+	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_EDIT4);
+	pEdit->GetWindowTextW(temp_CString);
+	CT2A temp_ascii2(temp_CString);
+	unsigned char *n_ = (unsigned char*)temp_ascii2.m_psz;
+	if (!HcheckInt(n_))
+	{
+		MessageBox(
+			HcharStringToLPCTSTR((unsigned char*)NOT_NUMBER_ERROR_MSG),
+			HcharStringToLPCTSTR((unsigned char*)"Error"),
+			MB_OK
+		);
+		return;
+	}
+	int n = GetValue(n_);
+	if (n > 0)
+	{
+		DeletePrevious(n, position, &mycontrol);
+		PrintDetail(NULL, NULL, &mycontrol, position);
+	}
+}
+
+
+void CRestore4HDlg::OnBnClickedButton9()
+{
+	// TODO: Add your control notification handler code here
+	CString temp_CString;
+	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_EDIT4);
+	pEdit->GetWindowTextW(temp_CString);
+	CT2A temp_ascii2(temp_CString);
+	unsigned char *n_ = (unsigned char*)temp_ascii2.m_psz;
+	if (!HcheckInt(n_))
+	{
+		MessageBox(
+			HcharStringToLPCTSTR((unsigned char*)NOT_NUMBER_ERROR_MSG),
+			HcharStringToLPCTSTR((unsigned char*)"Error"),
+			MB_OK
+		);
+		return;
+	}
+	int n = GetValue(n_);
+	if (n > 0)
+	{
+		DeleteAfter(n, position, &mycontrol);
 		PrintDetail(NULL, NULL, &mycontrol, position);
 	}
 }

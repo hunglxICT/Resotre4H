@@ -21,6 +21,7 @@ typedef struct MyControl {
 # define HEX   1
 # define MAX_INPUT 1999
 # define MAX_BUFFER_SIZE 51309
+# define NOT_NUMBER_ERROR_MSG "The thing in the textbox is not a number"
 
 extern MYCONTROL mycontrol;
 
@@ -35,6 +36,10 @@ extern long long position;
 extern int bufferstart;
 extern int bufferend;
 
+unsigned char HHexToDec(unsigned char t);
+int HisHexString(unsigned char *s);
+unsigned char *HConvertHexStr(unsigned char *s);
+int HcheckInt(unsigned char *s);
 long long Hmax(long long a, long long b);
 int Hstrlen(unsigned char *s); //get length of string start with s and end with 0
 int Hsubstr(unsigned char *pattern, unsigned char *src, int lenpattern, int lensrc);
